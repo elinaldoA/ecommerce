@@ -1,0 +1,4 @@
+
+28/12/2023 20:39:11 PagSeguro.Session[info]: Begin
+28/12/2023 20:39:11 PagSeguro.Session[info]: POST: https://ws.sandbox.pagseguro.uol.com.br/v2/sessions?email=naldoads14%40outlook.com&token=2FB2A98292F14CB8BE7736ECEAF4D386
+28/12/2023 20:39:13 PagSeguro.Session[info]: Session ID: 2777cb5cf6ea4910b93ce040f636742e
