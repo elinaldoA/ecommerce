@@ -27,7 +27,7 @@
                         <td>{{ $p->nome }}</td>
                         <td><img src="{{ $p->foto }}" height="50px"></td>
                         <td>{{ $p->valor }}</td>
-                        <td>{{ $p->descricao }}</td>
+                        <td>{{ substr($p->descricao, 0, 200) }}</td>
                     </tr>
                     @php $total += $p->valor; @endphp
                 @endforeach

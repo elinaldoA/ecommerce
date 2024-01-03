@@ -9,7 +9,7 @@
               <h5 class="card-title">{{ $prod->nome }}</h5>
               <h6 class="card-subtitle">R$ {{ $prod->valor }}</h6>
               <hr/>
-              <p class="card-text">{{ $prod->descricao }}</p>
+              <p class="card-text">{{substr($prod->descricao, 0, 200)}}</p>
               <a href="{{route('adcionar_carrinho', ['idproduto' => $prod->id])}}" class="btn btn-primary">Adcionar item</a>
             </div>
         </div>
