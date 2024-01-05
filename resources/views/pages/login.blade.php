@@ -37,7 +37,7 @@
                   <p class="mb-0">Digite seu e-mail e sua senha para entrar</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" action="{{route('admin.login.submit')}}" method="POST" enctype="multipart/form-data">
+                  <form role="form" action="{{route('admin.login')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <label>Email</label>
                     <div class="mb-3">

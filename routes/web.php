@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 //Administrativo
 Route::prefix('admin')->group(function () {
-    Route::get('/pages/sign-in', 'Administrativo\Auth\LoginController@showAdminLoginForm')->name('admin.login');
-    Route::post('/pages/sign-in', 'Administrativo\Auth\LoginController@AdminLogin')->name('admin.login.submit');
+    Route::get('pages/login', 'Administrativo\Auth\LoginController@showLoginForm')->name('admin.login');
+    Route::post('pages/login', 'Administrativo\Auth\LoginController@login')->name('admin.login.submit');
+    Route::post('pages/logout', 'Administrativo\Auth\LoginController@logout')->name('admin.logout');
     Route::get('/pages/dashboard', 'Administrativo\DashboardController@index')->name('dashboard');
     Route::get('/pages/profile', 'Administrativo\ProfileController@index')->name('profile');
 });

@@ -27,7 +27,6 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::DASHBOARD;
-
     /**
      * Create a new controller instance.
      *
@@ -37,29 +36,60 @@ class LoginController extends Controller
     {
         $this->middleware('guest:admin')->except('logout');
     }
-
-    public function showAdminLoginForm()
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
     {
-        return view('pages.sign-in', ['url' => 'admin']);
-    }
-
-    public function adminLogin(Request $request)
-    {
-        $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
-        ]);
-
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
-            return redirect()->intended('/admin');
-        }
-        return back()->withInput($request->only('email', 'remember'));
+        return view('pages.login');
     }
 
     protected function redirectTo()
     {
         session()->flash('success', 'Seja bem vindo!');
         return $this->redirectTo;
+    }
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+        $credentials = $this->credentials($request);
+        $credentials['active'] = true;
+
+        return $this->guard()->attempt(
+            $credentials, $request->filled('remember')
+        );
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return $this->loggedOut($request) ?: redirect(route('pages.login'));
+    }
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('admin');
     }
 }
