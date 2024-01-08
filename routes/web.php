@@ -23,6 +23,13 @@ Route::prefix('admin')->group(function () {
     Route::post('pages/logout', 'Administrativo\Auth\LoginController@logout')->name('admin.logout');
     Route::get('/pages/dashboard', 'Administrativo\DashboardController@index')->name('dashboard');
     Route::get('/pages/profile', 'Administrativo\ProfileController@index')->name('profile');
+    /** Produtos */
+    Route::get('/pages/produtos/index', 'Administrativo\ProdutoController@index')->name('produtos.index');
+    Route::get('/pages/produtos/create', 'Administrativo\ProdutoController@create')->name('produtos.create');
+    Route::post('/pages/produtos/create', 'Administrativo\ProdutoController@store')->name('produtos.store');
+    Route::get('/pages/produtos/edit/{$produto}', 'Administrativo\ProdutoController@edit')->name('produtos.edit');
+    Route::post('/pages/produtos/edit/{$produto}', 'Administrativo\ProdutoController@update')->name('produtos.update');
+    Route::post('/pages/produtos/{$produto}', 'Administrativo\ProdutoController@delete')->name('produtos.excluir');
 });
 
 Route::match(['get', 'post'], '/', [ProdutosController::class, 'index'])
