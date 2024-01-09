@@ -179,14 +179,9 @@
                 <div class="col-8">
                   <div class="numbers">
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Faturamento do dia</p>
-                    @php
-                    $total = 0;
-                    foreach ($itens_pedidos as $pe){
-                        $total += $pe->valor;
-                    }
-                    @endphp
                     <h5 class="font-weight-bolder mb-0">
-                      {{ 'R$ '.number_format($total, 2, ',', '.') }}
+                      R$ 53,000
+                      <span class="text-success text-sm font-weight-bolder">+55%</span>
                     </h5>
                   </div>
                 </div>
@@ -226,15 +221,9 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    @php
-                    $totalPR = 0;
-                    foreach ($produtos as $pr){
-                        $totalPR =+ $pr->id;
-                    }
-                    @endphp
                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Novos Produtos</p>
                     <h5 class="font-weight-bolder mb-0">
-                      + {{$totalPR}}
+                      + {{ $widget['produtos'] }}
                     </h5>
                   </div>
                 </div>
@@ -280,6 +269,7 @@
                 </div>
               </div>
               <h6 class="ms-2 mt-4 mb-0"> Usuários ativos </h6>
+              <p class="text-sm ms-2"> (<span class="font-weight-bolder">+23%</span>) than last week </p>
               <div class="container border-radius-lg">
                 <div class="row">
                   <div class="col-3 py-3 ps-0">
@@ -301,7 +291,7 @@
                       </div>
                       <p class="text-xs mt-1 mb-0 font-weight-bold">Users</p>
                     </div>
-                    <h4 class="font-weight-bolder">{{ $widget['usuarios'] }}</h4>
+                    <h4 class="font-weight-bolder">36K</h4>
                     <div class="progress w-75">
                       <div class="progress-bar bg-dark w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
@@ -407,7 +397,7 @@
         <div class="col">
           <div class="card h-100">
             <div class="card-header pb-0">
-              <h6>Visão geral de vendas</h6>
+              <h6>Orders overview</h6>
               <p class="text-sm">
                 <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
                 <span class="font-weight-bold">24%</span> Este mês
@@ -419,17 +409,55 @@
                   <span class="timeline-step">
                     <i class="ni ni-bell-55 text-success text-gradient"></i>
                   </span>
-                  @foreach ($itens_pedidos as $ped)
-                    <div class="timeline-content">
-                        <h6 class="text-dark text-sm font-weight-bold mb-0">R$ {{$ped->valor}},
-                            @foreach ($produtos as $prod)
-                            @if($ped->produto_id == $prod->id)
-                                {{$prod->nome}}
-                            @endif
-                            @endforeach</h6>
-                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{$ped->dt_item}}</p>
-                    </div>
-                  @endforeach
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">R$2400, Alterações de design</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEZ 7:20 AM</p>
+                  </div>
+                </div>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-html5 text-danger text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEZ 11 AM</p>
+                  </div>
+                </div>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-cart text-info text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Pagamentos de servidor para abril</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEZ 9:34 AM</p>
+                  </div>
+                </div>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-credit-card text-warning text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Novo cartão adicionado para pedido #4395133</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEZ 2:20 AM</p>
+                  </div>
+                </div>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-key-25 text-primary text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Desbloquear pacotes para desenvolvimento</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEZ 4:54 AM</p>
+                  </div>
+                </div>
+                <div class="timeline-block">
+                  <span class="timeline-step">
+                    <i class="ni ni-money-coins text-dark text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Nova ordem #9583120</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEZ</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -596,9 +624,9 @@
     new Chart(ctx2, {
       type: "line",
       data: {
-        labels: ["Jan","Fev","Mar","Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [{
-            label: "Pedidos",
+            label: "Mobile apps",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 0,
@@ -606,12 +634,12 @@
             borderWidth: 3,
             backgroundColor: gradientStroke1,
             fill: true,
-            data: [{{$total}},0,0,0,0,0,0,0,0,0,0,0],
+            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
             maxBarThickness: 6
 
           },
           {
-            label: "Produtos",
+            label: "Websites",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 0,
@@ -619,7 +647,7 @@
             borderWidth: 3,
             backgroundColor: gradientStroke2,
             fill: true,
-            data: [{{$totalPR}},0,0,0,0,0,0,0,0,0,0,0],
+            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
             maxBarThickness: 6
           },
         ],

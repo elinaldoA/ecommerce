@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrativo;
 use App\Http\Controllers\Controller;
 use App\Models\Produtos;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -26,11 +27,11 @@ class DashboardController extends Controller
     public function index()
     {
         $usuarios = Usuario::count();
-        $produtos = Produtos::count();
+        $itens_pedidos = DB::table('itens_pedidos')->get();
+        $produtos = DB::table('produtos')->get();
         $widget = [
-            'produtos' => $produtos,
             'usuarios' => $usuarios,
         ];
-        return view('pages.dashboard', compact('widget'));
+        return view('pages.dashboard', compact('widget','itens_pedidos','produtos'));
     }
 }
