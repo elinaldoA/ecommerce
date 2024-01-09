@@ -22,6 +22,9 @@
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -42,6 +45,15 @@
                     <a class="nav-link" href="{{ route('profile') }}">
                         <i class="fa fa-user"></i>
                         <span class="nav-link-text ms-1">Perfil</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('produtos.index')}}">
+                    <div class="bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fa fa-box"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Produto</span>
                     </a>
                 </li>
             </ul>
@@ -104,7 +116,7 @@
             <tbody class="table table-striped table-resposive">
                 @foreach ($produtos as $produto)
                     <tr>
-                        <td><img src="{{ asset($produto->foto) }}" height="50" width="50"></td>
+                        <td><img src="/images/{{ $produto->foto }}" height="50" width="50"></td>
                         <td>{{ $produto->nome }}</td>
                         <td>{{ $produto->valor }}</td>
                         @foreach ($categorias as $cat)
@@ -113,9 +125,31 @@
                             @endif
                         @endforeach
                         <td>
-                            <a href="{{ route('produtos.edit', $produto->id) }}" class="btn btn-outline-success"><i class="fa fa-edit"></i></a>
-                            <a href="{{ route('produtos.excluir', $produto->id) }}" class="btn btn-outline-danger"><i
-                                    class="fa fa-trash"></i></a>
+                            <a href="{{route('produtos.edit',['produto' => $produto])}}" class="btn btn-outline-success"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash"></i></a>
+                                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">{{ __('Confirmar exclusão') }}</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Deseja realmente excluir esse registro ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="{{route('produtos.excluir', ['produto' => $produto->id])}}" method="POST">
+                                                    <button class="btn btn-link" type="button" data-dismiss="modal">{{ __('Cancelar') }}</button>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </td>
                     </tr>
                 @endforeach

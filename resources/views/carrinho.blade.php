@@ -25,7 +25,7 @@
                             </a>
                         </td>
                         <td>{{ $p->nome }}</td>
-                        <td><img src="{{ $p->foto }}" height="50px"></td>
+                        <td><img src="/images/{{ $p->foto }}" height="50px"></td>
                         <td>{{ $p->valor }}</td>
                         <td>{{ substr($p->descricao, 0, 200) }}</td>
                     </tr>

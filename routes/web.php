@@ -27,9 +27,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/pages/produtos/index', 'Administrativo\ProdutoController@index')->name('produtos.index');
     Route::get('/pages/produtos/create', 'Administrativo\ProdutoController@create')->name('produtos.create');
     Route::post('/pages/produtos/create', 'Administrativo\ProdutoController@store')->name('produtos.store');
-    Route::get('/pages/produtos/edit/{$produto}', 'Administrativo\ProdutoController@edit')->name('produtos.edit');
-    Route::post('/pages/produtos/edit/{$produto}', 'Administrativo\ProdutoController@update')->name('produtos.update');
-    Route::post('/pages/produtos/{$produto}', 'Administrativo\ProdutoController@delete')->name('produtos.excluir');
+    Route::get('/pages/produtos/{produto}/edit', 'Administrativo\ProdutoController@edit')->name('produtos.edit');
+    Route::post('/pages/produtos/{produto}/edit', 'Administrativo\ProdutoController@update')->name('produtos.update');
+    Route::delete('/pages/produtos/{produto}/excluir', 'Administrativo\ProdutoController@destroy')->name('produtos.excluir');
 });
 
 Route::match(['get', 'post'], '/', [ProdutosController::class, 'index'])

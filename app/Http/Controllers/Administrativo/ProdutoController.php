@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Administrativo;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProdutoDetalhes;
 use App\Models\Produtos;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProdutoController extends Controller
 {
@@ -42,27 +45,49 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
+        $produto = new Produtos;
+        $produto->nome = $request->input('nome');
+        $produto->valor = $request->input('valor');
+        $produto->descricao = $request->input('descricao');
+        $produto->categoria_id = $request->input('categoria_id');
 
-        $request->validate([
-            'nome' => 'required',
-            'valor' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'descricao' => 'string',
-            'categoria_id' => 'required',
-        ]);
-
-        $input = $request->all();
-
-        if ($image = $request->file('foto')) {
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['foto'] = "$profileImage";
+        if($request->hasfile('foto'))
+        {
+            $file = $request->file('foto');
+            $extention = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extention;
+            $file->move('images/', $filename);
+            $produto->foto = $filename;
         }
+        $produto->save();
 
-        Produtos::create($input);
-        return redirect()->route('pages.produtos.index')
-                        ->with('success','Produto criado com sucesso.');
+        /*Detalhes produto*/
+        $detalhe = new ProdutoDetalhes;
+        $detalhe->produto_id = $produto->id;
+        $detalhe->marca = $request->input('marca');
+        $detalhe->modelo = $request->input('modelo');
+        $detalhe->cor = $request->input('cor');
+        $detalhe->altura = $request->input('altura');
+        $detalhe->largura = $request->input('largura');
+        $detalhe->profundidade = $request->input('profundidade');
+        $detalhe->peso = $request->input('peso');
+        $detalhe->sistema = $request->input('sistema');
+        $detalhe->linha = $request->input('linha');
+        $detalhe->tipo = $request->input('tipo');
+        $detalhe->classificacao = $request->input('classificacao');
+        $detalhe->compatibilidade = $request->input('compatibilidade');
+        $detalhe->audio = $request->input('audio');
+        $detalhe->video = $request->input('video');
+        $detalhe->velocidade = $request->input('velocidade');
+        $detalhe->processamento = $request->input('processamento');
+        $detalhe->armazenamento = $request->input('armazenamento');
+        $detalhe->conectividade = $request->input('conectividade');
+        $detalhe->energia = $request->input('energia');
+        $detalhe->itens_inclusos = $request->input('itens_inclusos');
+        $detalhe->garantia = $request->input('garantia');
+        $detalhe->save();
+
+        return redirect()->back()->with('status','Produto criado com sucesso!');
     }
 
     /**
@@ -73,9 +98,10 @@ class ProdutoController extends Controller
      */
     public function edit(Produtos $produto)
     {
-       $produtos = Produtos::find($produto->id);
+       $produto = Produtos::find($produto->id);
+       $detalhe = ProdutoDetalhes::find($produto->id);
        $categorias = DB::table('categorias')->get();
-       return view('pages.produtos.edit', compact('produtos','categorias'));
+       return view('pages.produtos.edit', compact('produto','detalhe','categorias'));
     }
 
     /**
@@ -87,28 +113,53 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $produtos = Produtos::find($id);
+        $produto = Produtos::find($id);
+        $produto->nome = $request->input('nome');
+        $produto->valor = $request->input('valor');
+        $produto->descricao = $request->input('descricao');
+        $produto->categoria_id = $request->input('categoria_id');
 
-        $request->validate([
-            'nome' => 'required',
-            'valor' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'descricao' => 'string',
-            'categoria_id' => 'required',
-        ]);
-
-        $input = $request->all();
-
-        if ($image = $request->file('foto')) {
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['foto'] = "$profileImage";
+        if($request->hasfile('foto'))
+        {
+            $destination = 'images/'.$produto->foto;
+            if(File::exists($destination))
+            {
+                File::delete($destination);
+            }
+            $file = $request->file('foto');
+            $extention = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extention;
+            $file->move('images/', $filename);
+            $produto->foto = $filename;
         }
+        $produto->update();
 
-        $produtos->update($input);
-        return redirect()->route('pages.produtos.index')
-                        ->with('success','Produto criado com sucesso.');
+        $detalhe = ProdutoDetalhes::find($id);
+        $detalhe->produto_id = $produto->id;
+        $detalhe->marca = $request->input('marca');
+        $detalhe->modelo = $request->input('modelo');
+        $detalhe->cor = $request->input('cor');
+        $detalhe->altura = $request->input('altura');
+        $detalhe->largura = $request->input('largura');
+        $detalhe->profundidade = $request->input('profundidade');
+        $detalhe->peso = $request->input('peso');
+        $detalhe->sistema = $request->input('sistema');
+        $detalhe->linha = $request->input('linha');
+        $detalhe->tipo = $request->input('tipo');
+        $detalhe->classificacao = $request->input('classificacao');
+        $detalhe->compatibilidade = $request->input('compatibilidade');
+        $detalhe->audio = $request->input('audio');
+        $detalhe->video = $request->input('video');
+        $detalhe->velocidade = $request->input('velocidade');
+        $detalhe->processamento = $request->input('processamento');
+        $detalhe->armazenamento = $request->input('armazenamento');
+        $detalhe->conectividade = $request->input('conectividade');
+        $detalhe->energia = $request->input('energia');
+        $detalhe->itens_inclusos = $request->input('itens_inclusos');
+        $detalhe->garantia = $request->input('garantia');
+        $detalhe->update();
+
+        return redirect()->back()->with('status','Produto atualizado com sucesso!');
     }
 
     /**
@@ -117,11 +168,17 @@ class ProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Produtos $produto)
+    public function destroy(Produtos $produto)
     {
+        $produto = Produtos::find($produto->id);
+        $detalhe = ProdutoDetalhes::find($produto->id);
+        $destination = 'images/'.$produto->foto;
+        if(File::exists($destination))
+        {
+            File::delete($destination);
+        }
         $produto->delete();
-
-        return redirect()->route('produtos')
-                        ->with('success','Produto excluído com sucesso');
+        $detalhe->delete();
+        return redirect()->back()->with('status','Produto excluído com sucesso!');
     }
 }

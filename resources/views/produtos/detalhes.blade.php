@@ -6,7 +6,7 @@
         <div class="card mb-3" style="max-width: auto;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="{{ asset($produto->foto) }}" class="img-fluid rounded-start" alt="...">
+                    <img src="/images/{{ $produto->foto }}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col">
                     <div class="card-body">

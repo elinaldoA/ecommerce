@@ -40,32 +40,17 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link  " href="{{ route('profile') }}">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>customer-support</title>
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
-                                        <g transform="translate(1716.000000, 291.000000)">
-                                            <g transform="translate(1.000000, 0.000000)">
-                                                <path class="color-background opacity-6"
-                                                    d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z">
-                                                </path>
-                                                <path class="color-background"
-                                                    d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z">
-                                                </path>
-                                                <path class="color-background"
-                                                    d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z">
-                                                </path>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
+                        <i class="fa fa-user"></i>
                         <span class="nav-link-text ms-1">Perfil</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('produtos.index')}}">
+                    <div class="bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fa fa-box"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Produto</span>
                     </a>
                 </li>
             </ul>
@@ -117,7 +102,7 @@
                 </div>
             </div>
         </nav>
-        <form class="col" action="{{ route('produtos.edit', ['produto' => $produto]) }}" method="POST" enctype="multipart/form-data">
+        <form class="col" method="POST" action="{{ route('produtos.update',['produto' => $produto->id]) }}" enctype="multipart/form-data">
             @csrf
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -137,30 +122,33 @@
                     <div class="row g-3">
                         <div class="col-4">
                             <label for="foto" class="form-label">Foto:</label>
-                            <input type="file" class="form-control" id="foto" name="foto"
-                                value="Foto">
+                            <input type="file" class="form-control" id="foto" name="foto">
+                            <img src="/images/{{ $produto->foto }}" width="100px" class="rounded mx-auto d-block">
                         </div>
                         <div class="col-4">
                             <label for="nome" class="form-label">Nome:</label>
                             <input type="text" class="form-control" id="nome" name="nome"
-                                placeholder="Notebook">
+                                value="{{$produto->nome}}">
                         </div>
                         <div class="col-4">
                             <label for="valor">Valor</label>
                             <input type="text" class="form-control" id="valor" name="valor"
-                                placeholder="R$ 0.00">
+                                value="{{$produto->valor}}">
                         </div>
                         <div class="col-12">
                             <label for="descricao">Descrição</label>
                             <textarea class="form-control" id="descricao" name="descricao" placeholder="Breve descrição do produto"
-                                rows="6" cols="6"></textarea>
+                                rows="6" cols="6">{{$produto->descricao}}</textarea>
                         </div>
                         <div class="col-4">
                             <label for="categoria">Categoria</label>
                             <select class="form-control" id="categoria_id" name="categoria_id">
-                                <option>Selecione</option>
                                 @foreach ($categorias as $cat)
+                                    @if ($produto->categoria_id == $cat->id)
+                                    <option value="{{ $cat->id }}" selected>{{ $cat->categoria }}</option>
+                                    @else
                                     <option value="{{ $cat->id }}">{{ $cat->categoria }}</option>
+                                    @endif
                                 @endforeach
                             </select><br />
                             <button type="submit" class="btn btn-primary mb-3">Salvar</button>
@@ -170,86 +158,85 @@
                 <div class="tab-pane fade" id="produto-detalhes-pane" role="tabpanel"
                     aria-labelledby="produto-detalhes" tabindex="0">
                     <div class="row g-3">
-
                         <div class="col-4">
                             <label for="marca">Marca</label>
-                            <input type="text" class="form-control" id="marca" placeholder="Nike..">
+                            <input type="text" class="form-control" id="marca" name="marca" placeholder="Nike.." value="{{$detalhe->marca}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Modelo</label>
-                            <input type="text" class="form-control" id="modelo" placeholder="Nike..">
+                            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="22v480.." value="{{$detalhe->modelo}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Cor</label>
-                            <input type="text" class="form-control" id="cor" placeholder="Nike..">
+                            <input type="text" class="form-control" id="cor" name="cor" placeholder="Amarelo.." value="{{$detalhe->cor}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Altura</label>
-                            <input type="text" class="form-control" id="altura" placeholder="Nike..">
+                            <input type="text" class="form-control" id="altura" name="altura" value="{{$detalhe->altura}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Largura</label>
-                            <input type="text" class="form-control" id="largura" placeholder="Nike..">
+                            <input type="text" class="form-control" id="largura" name="largura" value="{{$detalhe->largura}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Profundidade</label>
-                            <input type="text" class="form-control" id="profundidade" placeholder="Nike..">
+                            <input type="text" class="form-control" id="profundidade" name="profundidade" value="{{$detalhe->profundidade}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Peso</label>
-                            <input type="text" class="form-control" id="peso" placeholder="Kg...">
+                            <input type="text" class="form-control" id="peso" name="peso" value="{{$detalhe->peso}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Sistema</label>
-                            <input type="text" class="form-control" id="sistema" placeholder="Windows...">
+                            <input type="text" class="form-control" id="sistema" name="sistema" value="{{$detalhe->sistema}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Linha</label>
-                            <input type="text" class="form-control" id="linha">
+                            <input type="text" class="form-control" id="linha" name="linha" value="{{$detalhe->linha}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Tipo</label>
-                            <input type="text" class="form-control" id="tipo">
+                            <input type="text" class="form-control" id="tipo" name="tipo" value="{{$detalhe->tipo}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Classificação</label>
-                            <input type="text" class="form-control" id="classificacao">
+                            <input type="text" class="form-control" id="classificacao" name="classificacao" value="{{$detalhe->classificacao}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Áudio</label>
-                            <input type="text" class="form-control" id="audio">
+                            <input type="text" class="form-control" id="audio" name="audio" value="{{$detalhe->audio}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Video</label>
-                            <input type="text" class="form-control" id="video">
+                            <input type="text" class="form-control" id="video" name="video" value="{{$detalhe->video}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Velocidade</label>
-                            <input type="text" class="form-control" id="velocidade">
+                            <input type="text" class="form-control" id="velocidade" name="velocidade" value="{{$detalhe->velocidade}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Processamento</label>
-                            <input type="text" class="form-control" id="processamento">
+                            <input type="text" class="form-control" id="processamento" name="processamento" value="{{$detalhe->processamento}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Armazenamento</label>
-                            <input type="text" class="form-control" id="armazenamento">
+                            <input type="text" class="form-control" id="armazenamento" name="armazenamento" value="{{$detalhe->armazenamento}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Conectividade</label>
-                            <input type="text" class="form-control" id="conectividade">
+                            <input type="text" class="form-control" id="conectividade" name="conectividade" value="{{$detalhe->conectividade}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Energia</label>
-                            <input type="text" class="form-control" id="energia">
+                            <input type="text" class="form-control" id="energia" name="energia" value="{{$detalhe->energia}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Itens inclusos</label>
-                            <input type="text" class="form-control" id="itens_inclusos">
+                            <input type="text" class="form-control" id="itens_inclusos" name="itens_inclusos" value="{{$detalhe->itens_inclusos}}">
                         </div>
                         <div class="col-4">
                             <label for="marca">Garantia</label>
-                            <input type="text" class="form-control" id="garantia">
+                            <input type="text" class="form-control" id="garantia" name="garantia" value="{{$detalhe->garantia}}">
                         </div>
                     </div>
                 </div>

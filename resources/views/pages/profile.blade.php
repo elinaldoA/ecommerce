@@ -44,6 +44,14 @@
                         <span class="nav-link-text ms-1">Perfil</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('produtos.index')}}">
+                    <div class="bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fa fa-box"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Produto</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </aside>

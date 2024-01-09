@@ -93,7 +93,7 @@
                 </div>
             </div>
         </nav>
-        <form class="col" action="{{route('produtos.store')}}" method="POST" enctype="multipart/form-data">
+        <form class="col" method="POST" action="{{route('produtos.store')}}" enctype="multipart/form-data">
             @csrf
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -112,27 +112,26 @@
                     aria-labelledby="produto-geral" tabindex="0">
                     <div class="row g-3">
                         <div class="col-4">
-                            <label for="foto" class="form-label">Foto:</label>
-                            <input type="file" class="form-control" id="foto" name="foto"
-                                value="Foto">
+                            <label for="foto" class="form-label">Foto<span class="small text-danger"> * </span></label>
+                            <input type="file" class="form-control" id="foto" name="foto">
                         </div>
                         <div class="col-4">
-                            <label for="nome" class="form-label">Nome:</label>
+                            <label for="nome" class="form-label">Nome:<span class="small text-danger"> * </span></label>
                             <input type="text" class="form-control" id="nome" name="nome"
                                 placeholder="Notebook">
                         </div>
                         <div class="col-4">
-                            <label for="valor">Valor</label>
+                            <label for="valor">Valor<span class="small text-danger"> * </span></label>
                             <input type="text" class="form-control" id="valor" name="valor"
                                 placeholder="R$ 0.00">
                         </div>
                         <div class="col-12">
-                            <label for="descricao">Descrição</label>
+                            <label for="descricao">Descrição<span class="small text-danger"> * </span></label>
                             <textarea class="form-control" id="descricao" name="descricao" placeholder="Breve descrição do produto"
                                 rows="6" cols="6"></textarea>
                         </div>
                         <div class="col-4">
-                            <label for="categoria">Categoria</label>
+                            <label for="categoria">Categoria<span class="small text-danger"> * </span></label>
                             <select class="form-control" id="categoria_id" name="categoria_id">
                                 <option>Selecione</option>
                                 @foreach ($categorias as $cat)
@@ -148,84 +147,84 @@
                     <div class="row g-3">
 
                         <div class="col-4">
-                            <label for="marca">Marca</label>
-                            <input type="text" class="form-control" id="marca" placeholder="Nike..">
+                            <label for="marca">Marca<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="marca" name="marca" placeholder="Nike..">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Modelo</label>
-                            <input type="text" class="form-control" id="modelo" placeholder="Nike..">
+                            <label for="marca">Modelo<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Nike..">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Cor</label>
-                            <input type="text" class="form-control" id="cor" placeholder="Nike..">
+                            <label for="marca">Cor<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="cor" name="cor" placeholder="Nike..">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Altura</label>
-                            <input type="text" class="form-control" id="altura" placeholder="Nike..">
+                            <label for="marca">Altura<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="altura" name="altura" placeholder="Nike..">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Largura</label>
-                            <input type="text" class="form-control" id="largura" placeholder="Nike..">
+                            <label for="marca">Largura<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="largura" name="largura" placeholder="Nike..">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Profundidade</label>
-                            <input type="text" class="form-control" id="profundidade" placeholder="Nike..">
+                            <label for="marca">Profundidade<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="profundidade" name="profundidade" placeholder="Nike..">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Peso</label>
-                            <input type="text" class="form-control" id="peso" placeholder="Kg...">
+                            <label for="marca">Peso<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="peso" name="peso" placeholder="Kg...">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Sistema</label>
-                            <input type="text" class="form-control" id="sistema" placeholder="Windows...">
+                            <label for="marca">Sistema<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="sistema" name="sistema" placeholder="Windows...">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Linha</label>
-                            <input type="text" class="form-control" id="linha">
+                            <label for="marca">Linha<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="linha" name="linha">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Tipo</label>
-                            <input type="text" class="form-control" id="tipo">
+                            <label for="marca">Tipo<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="tipo" name="tipo">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Classificação</label>
-                            <input type="text" class="form-control" id="classificacao">
+                            <label for="marca">Classificação<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="classificacao" name="classificacao">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Áudio</label>
-                            <input type="text" class="form-control" id="audio">
+                            <label for="marca">Áudio<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="audio" name="audio">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Video</label>
-                            <input type="text" class="form-control" id="video">
+                            <label for="marca">Video<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="video" name="video">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Velocidade</label>
-                            <input type="text" class="form-control" id="velocidade">
+                            <label for="marca">Velocidade<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="velocidade" name="velocidade">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Processamento</label>
-                            <input type="text" class="form-control" id="processamento">
+                            <label for="marca">Processamento<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="processamento" name="processamento">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Armazenamento</label>
-                            <input type="text" class="form-control" id="armazenamento">
+                            <label for="marca">Armazenamento<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="armazenamento" name="armazenamento">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Conectividade</label>
-                            <input type="text" class="form-control" id="conectividade">
+                            <label for="marca">Conectividade<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="conectividade" name="conectividade">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Energia</label>
-                            <input type="text" class="form-control" id="energia">
+                            <label for="marca">Energia<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="energia" name="energia">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Itens inclusos</label>
-                            <input type="text" class="form-control" id="itens_inclusos">
+                            <label for="marca">Itens inclusos<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="itens_inclusos" name="itens_inclusos">
                         </div>
                         <div class="col-4">
-                            <label for="marca">Garantia</label>
-                            <input type="text" class="form-control" id="garantia">
+                            <label for="marca">Garantia<span class="small text-danger"> * </span></label>
+                            <input type="text" class="form-control" id="garantia" name="garantia">
                         </div>
                     </div>
                 </div>
