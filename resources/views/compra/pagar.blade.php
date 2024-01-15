@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('loja')
 @section('scriptjs')
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

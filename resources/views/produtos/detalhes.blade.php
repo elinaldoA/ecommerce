@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('loja')
 @section('conteudo')
     @foreach ($produtos as $produto)
     @endforeach

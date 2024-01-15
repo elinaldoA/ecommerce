@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\File;
 class ProdutoController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -22,7 +31,7 @@ class ProdutoController extends Controller
         $categorias = DB::table('categorias')->get();
         $produtos = Produtos::latest()->paginate(15);
 
-        return view('pages.produtos.index',compact('produtos','categorias'))
+        return view('admin.produtos.index',compact('produtos','categorias'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -34,7 +43,7 @@ class ProdutoController extends Controller
     public function create()
     {
         $categorias = DB::table('categorias')->get();
-        return view("pages.produtos.create", compact('categorias'));
+        return view("admin.produtos.create", compact('categorias'));
     }
 
     /**
@@ -101,7 +110,7 @@ class ProdutoController extends Controller
        $produto = Produtos::find($produto->id);
        $detalhe = ProdutoDetalhes::find($produto->id);
        $categorias = DB::table('categorias')->get();
-       return view('pages.produtos.edit', compact('produto','detalhe','categorias'));
+       return view('admin.produtos.edit', compact('produto','detalhe','categorias'));
     }
 
     /**

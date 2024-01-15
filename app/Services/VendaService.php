@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Cliente;
 use App\Models\Pedidos;
-use App\Models\Usuario;
 use App\Models\Itens_pedidos;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class VendaService
 {
 
-    public function finalizarVenda($prods = [], Usuario $usuario)
+    public function finalizarVenda($prods = [], Cliente $usuario)
     {
         try {
             \DB::beginTransaction();

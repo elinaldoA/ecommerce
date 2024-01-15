@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('loja')
 @section('conteudo')
     <h3><i class="fa fa-shopping-cart"></i> Carrinho</h3>
     @if (isset($cart) && count($cart) > 0)

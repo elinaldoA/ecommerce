@@ -3,16 +3,16 @@
 namespace App\Services;
 
 use App\Models\Enderecos;
-use App\Models\Usuario;
+use App\Models\Cliente;
 use Illuminate\Support\Facades\Log;
 
 class ClienteService
 {
-    public function salvarUsuario(Usuario $usuario, Enderecos $endereco)
+    public function salvarUsuario(Cliente $usuario, Enderecos $endereco)
     {
         try{
             //Busca o usuário com o login que deve ser salvo no banco
-            $dbUsuario = Usuario::where("login", $usuario->login)->first();
+            $dbUsuario = Cliente::where("login", $usuario->login)->first();
             if($dbUsuario){
                 return ['status' => 'err', 'message' => 'Usuário já cadastrado no sistema!'];
             }
