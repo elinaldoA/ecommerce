@@ -12,7 +12,7 @@
                                     <p class="mb-0">Digite seu e-mail e sua senha para entrar</p>
                                 </div>
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('login') }}">
+                                    <form method="POST" action="{{ route('admin.login') }}">
                                         @csrf
 
                                         <div class="row mb-3">

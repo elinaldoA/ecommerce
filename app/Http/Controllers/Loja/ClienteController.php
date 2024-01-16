@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Loja;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cliente;
 use App\Models\Enderecos;
-use Illuminate\Http\Request;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Request;
 use App\Services\ClienteService;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,7 +20,7 @@ class ClienteController extends Controller
     {
         //Pegar todos os valores do formulário
         $values = $request->all();
-        $usuario = new Cliente();
+        $usuario = new Usuario();
         $usuario->fill($values);
         $usuario->login = $request->input("cpf",'');
         $senha = $request->input("password",'');

@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\RModel;
-
-Use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class Usuario extends RModel implements Authenticatable
 {
@@ -47,4 +45,3 @@ class Usuario extends RModel implements Authenticatable
         $this->attributes["telefone"] = $value;
     }
 }
-

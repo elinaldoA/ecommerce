@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Administrativo;
 
 use App\Http\Controllers\Controller;
-use App\Models\Categorias;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
-class CategoriaController extends Controller
+class ClienteController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -24,9 +24,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categorias::latest()->paginate(15);
-
-        return view('admin.categorias.index',compact('categorias'))
+        $usuarios = Usuario::latest()->paginate(15);
+        return view('admin.clientes.index',compact('usuarios'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -37,7 +36,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('admin.categorias.create');
+        //
     }
 
     /**
@@ -48,21 +47,29 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        $categoria = new Categorias;
-        $categoria->categoria = $request->input('categoria');
-        $categoria->save();
-        return redirect()->back()->with('success', 'Categoria criada com sucesso');
+        //
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categorias $categoria)
+    public function edit(Usuario $usuario)
     {
-        $categoria = Categorias::find($categoria->id);
-        return view('admin.categorias.edit', compact('categoria'));
+        //
     }
 
     /**
@@ -72,12 +79,9 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categorias $categoria)
+    public function update(Request $request, $id)
     {
-        $categoria = Categorias::find($categoria->id);
-        $categoria->categoria = $request->input('categoria');
-        $categoria->update();
-        return redirect()->back()->with('success', 'Atualizado com sucesso!');
+        //
     }
 
     /**
@@ -86,10 +90,8 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categorias $categoria)
+    public function destroy($id)
     {
-        $categoria = Categorias::find($categoria->id);
-        $categoria->delete();
-        return redirect()->back()->with('success','Excluído com sucesso!');
+        //
     }
 }

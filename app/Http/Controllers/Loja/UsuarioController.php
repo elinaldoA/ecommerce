@@ -35,6 +35,6 @@ class UsuarioController extends Controller
     public function sair(Request $request)
     {
         Auth::logout();
-        return redirect()->route("loja");
+        return redirect()->route("home");
     }
 }

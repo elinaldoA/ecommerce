@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Administrativo;
 
 use App\Http\Controllers\Controller;
+use App\Models\Itens_pedidos;
 use App\Models\Produtos;
 use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -16,7 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admins');
     }
 
     /**
@@ -26,13 +29,18 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $usuarios = Usuario::count();
         $users = User::count();
         $produtos = Produtos::count();
+        $itensPedidos = Itens_pedidos::count();
+        $itens_pedidos = DB::table('itens_pedidos')->get();
 
         $widget = [
+            'usuarios' => $usuarios,
             'users' => $users,
             'produtos' => $produtos,
+            'itensPedidos' => $itensPedidos,
         ];
-        return view('admin.dashboard', compact('widget','users','produtos'));
+        return view('admin.dashboard', compact('widget','usuarios','users','produtos','itens_pedidos','itensPedidos'));
     }
 }

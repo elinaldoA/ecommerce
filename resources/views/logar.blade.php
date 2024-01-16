@@ -16,7 +16,7 @@
 @section('conteudo')
     <div class="col-12">
         <h2 class="mb-3">Logar no sistema</h2>
-        <form action="{{ route('logar') }}" method="POST">
+        <form action="{{ route('logar') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 Login
