@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
@@ -29,14 +32,55 @@ class ResetPasswordController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Set the user's password.
+     * Display the password reset view for the given token.
+     *
+     * If no token is present, display the link request form.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string|null  $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
+
+    public function redirectTo()
+    {
+        return app()->getLocale()  . $this->redirectTo;
+    }
+
+    /**
+     * Reset the given user's password.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
      * @param  string  $password
      * @return void
      */
-    protected function setUserPassword($user, $password)
+    protected function resetPassword($user, $password)
     {
-        $user->password = $password;
+        $this->setUserPassword($user, $password);
+
+        $user->setRememberToken(Str::random(60));
+
+        $user->save();
+
+        event(new PasswordReset($user));
+
+        //Foi removido o login automático após trocar a senha pois não verifica todas as condições para o usuário fazer
+        //o login, por exemplo, se é um usuário ativo
+        //$this->guard()->login($user);
+    }
+
+    /**
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [];
     }
 }

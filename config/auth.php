@@ -40,13 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'users' => [
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'usuarios' => [
             'driver' => 'session',
             'provider' => 'usuarios',
-        ],
-        'admins' => [
-            'driver' => 'session',
-            'provider' => 'admins',
         ],
     ],
 
@@ -70,11 +70,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Usuario::class,
+            'model' => App\Models\User::class,
         ],
-        'admins' => [
+        'usuarios' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => App\Models\Usuario::class,
         ],
 
         // 'users' => [
@@ -99,15 +99,15 @@ return [
     */
 
     'passwords' => [
-        'clientes' => [
-            'provider' => 'usuarios',
-            'table' => 'password_usuarios_resets',
+        'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
-        'admins' => [
-            'provider' => 'admins',
-            'table' => 'password_admins_resets',
+        'usuarios' => [
+            'provider' => 'usuarios',
+            'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],

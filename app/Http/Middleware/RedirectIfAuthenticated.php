@@ -22,16 +22,17 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             switch ($guard) {
                 case 'admin':
-                    return redirect(RouteServiceProvider::HOME);
+                    return redirect(app()->getLocale() . '/'.  RouteServiceProvider::HOME);
                     break;
-                case 'cliente':
-                    return redirect(RouteServiceProvider::LOJA);
+                case 'loja':
+                    return redirect(app()->getLocale() . '/' . RouteServiceProvider::LOJA);
                     break;
                 default:
-                    return redirect('/');
+                    return redirect(app()->getLocale() . RouteServiceProvider::HOME);
                     break;
             }
         }
+
         return $next($request);
     }
 }

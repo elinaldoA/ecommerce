@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Loja;
 use App\Http\Controllers\Controller;
 use App\Models\Enderecos;
 use App\Models\Usuario;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use App\Services\ClienteService;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,7 +24,7 @@ class ClienteController extends Controller
         $usuario->fill($values);
         $usuario->login = $request->input("cpf",'');
         $senha = $request->input("password",'');
-        $usuario->password = \Hash::make($senha); //criptografa a senha do cliente
+        $usuario->password = Hash::make($senha); //criptografa a senha do cliente
         $endereco = new Enderecos($values);
         $endereco->logradouro = $request->input('endereco','');
 

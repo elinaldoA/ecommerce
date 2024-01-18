@@ -67,17 +67,17 @@
                         <label for="name" class="form-label">Nome</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control" name="name" id="name"
-                                value="{{ Auth::user()->name }}" />
+                                value="{{ \Auth::user()->name }}" />
                         </div>
                         <label for="email" class="form-label">E-mail</label>
                         <div class="col-md-8">
                             <input type="text" class="form-control" name="email" id="email"
-                                value="{{ Auth::user()->email }}" />
+                                value="{{ \Auth::user()->email }}" />
                         </div>
                         <label for="password" class="form-label">Senha</label>
                         <div class="col-md-8">
                             <input type="password" class="form-control" name="password" id="password"
-                                value="{{ Auth::user()->password }}" />
+                                value="{{ \Auth::user()->password }}" />
                         </div>
                         @csrf
                         @method('PUT')

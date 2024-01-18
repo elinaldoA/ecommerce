@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -37,31 +36,44 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
-    public function showAdminLoginForm()
+    public function redirectTo()
     {
-        return view('auth.login', ['url' => 'admin']);
+        return app()->getLocale()  . $this->redirectTo;
     }
 
-    public function adminLogin(Request $request)
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
     {
-        $this->validate($request, [
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
-        ]);
+        $credentials = $this->credentials($request);
+        $credentials['active'] = true;
 
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
-            return redirect()->intended('/admin');
-        }
-        return back()->withInput($request->only('email', 'remember'));
+        return $this->guard()->attempt(
+            $credentials, $request->filled('remember')
+        );
     }
 
-    protected function redirectTo()
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
     {
-        session()->flash('success', 'Seja bem vindo!');
-        return $this->redirectTo;
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return $this->loggedOut($request) ?: redirect(route('login'));
     }
 }

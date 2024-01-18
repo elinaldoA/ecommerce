@@ -21,7 +21,7 @@ class UsuarioController extends Controller
 
             $credential = ['login' => $login, 'password' => $senha];
             //logar
-            if(Auth::attempt($credential)){
+            if(Auth::guard()->attempt($credential)){
                 return redirect()->route("home");
             }else{
                 $request->session()->flash("err","Usuário ou senha inválido");

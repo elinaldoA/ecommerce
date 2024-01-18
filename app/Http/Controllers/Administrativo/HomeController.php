@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrativo;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Itens_pedidos;
 use App\Models\Produtos;
 use App\Models\User;
@@ -19,7 +20,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admins');
+        $this->middleware('auth');
     }
 
     /**

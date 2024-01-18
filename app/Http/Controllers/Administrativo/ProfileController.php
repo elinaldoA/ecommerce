@@ -17,7 +17,7 @@ class ProfileController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admins');
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -49,7 +49,7 @@ class ProfileController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = \Hash::make($request->input('password'));
+        $user->password = Hash::make($request->input('password'));
 
         if (!is_null($request->input('current_password'))) {
             if (Hash::check($request->input('current_password'), $user->password)) {

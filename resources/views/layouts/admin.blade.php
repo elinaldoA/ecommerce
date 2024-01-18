@@ -244,7 +244,7 @@
                                 <script>
                                     document.write(new Date().getFullYear())
                                 </script>,
-                                EA Shop <i class="fa fa-heart"></i> por
+                                ecommerce <i class="fa fa-heart"></i> por
                                 <a href="#" class="font-weight-bold" target="_blank">Elinaldo</a>
                             </div>
                         </div>

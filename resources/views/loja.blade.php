@@ -17,7 +17,7 @@
     <nav class="navbar navbar-light navbar-expand-md bg-light pl-5 pr-5 mb-5">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="" class="navbar-brand"> EA Shop</a>
+                <a href="" class="navbar-brand"> ecommerce</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -75,7 +75,7 @@
     <br />
     <footer class="container">
         <p class="float-right"><a href="#">Voltar ao topo</a></p>
-        <p>&copy; 2023-2023 EA Shop, Inc. &middot; <a href="#">Privacidade</a> &middot; <a
+        <p>&copy; 2023-2023 ecommerce, Inc. &middot; <a href="#">Privacidade</a> &middot; <a
                 href="#">Termos</a></p>
     </footer>
 </body>

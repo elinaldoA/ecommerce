@@ -41,7 +41,8 @@ Route::prefix('admin')->group(function (){
     Route::get('email/verify', [App\Http\Controllers\Auth\VerificationController::class,'show'])->name('admin.verification.notice');
     Route::get('email/verify/{id}/{hash}', [App\Http\Controllers\Auth\VerificationController::class,'verify'])->name('admin.verification.verify');
     Route::post('email/resend', [App\Http\Controllers\Auth\VerificationController::class,'resend'])->name('admin.verification.resend');
-
+});
+Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::get('/dashboard', [App\Http\Controllers\Administrativo\HomeController::class, 'index'])->name('dashboard');
     Route::get('/profile', [App\Http\Controllers\Administrativo\ProfileController::class, 'index'])->name('profile');
     Route::put('/profile-update', [App\Http\Controllers\Administrativo\ProfileController::class, 'update'])->name('profile.update');
@@ -69,7 +70,7 @@ Route::prefix('admin')->group(function (){
 });
 
 //Loja
-Route::prefix('cliente')->group(function (){
+Route::prefix('loja')->group(function (){
     Route::match(['get', 'post'], '/', [App\Http\Controllers\Loja\ProdutoController::class, 'index'])->name('home');
     Route::match(['get', 'post'], '/categoria', [App\Http\Controllers\Loja\ProdutoController::class, 'categoria'])->name('categoria');
 //Filtro categorias

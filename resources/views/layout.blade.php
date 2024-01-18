@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>EA Shop</title>
+    <title>ecommerce</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
@@ -17,7 +17,7 @@
     <nav class="navbar navbar-light navbar-expand-md bg-light pl-5 pr-5 mb-5">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="{{route('home')}}" class="navbar-brand"> EA Shop</a>
+                <a href="{{route('home')}}" class="navbar-brand"> ecommerce</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -76,7 +76,7 @@
     <br />
     <footer class="container">
         <p class="float-right"><a href="#">Voltar ao topo</a></p>
-        <p>&copy; 2023-2023 EA Shop, Inc. &middot; <a href="#">Privacidade</a> &middot; <a
+        <p>&copy; 2023-2023 ecommerce, Inc. &middot; <a href="#">Privacidade</a> &middot; <a
                 href="#">Termos</a></p>
     </footer>
 </body>
